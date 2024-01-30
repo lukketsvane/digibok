@@ -203,108 +203,108 @@ def corpus_management(params):
             label="Trykk her når korpusdefinisjonen er klar"
         )
 
-        if submit_button:
-            match params["doctype"]:
-                case "digimanus":
-                    df = dh.Corpus(
-                        doctype=v(params["doctype"]),
-                        author=v(params["authors"]),
-                        fulltext=v(params["fulltext"]),
-                        from_year=params["years"][0],
-                        to_year=params["years"][1],
-                        title=v(params["title"]),
-                        limit=limit,
-                        order_by=ordertype,
-                    ).frame
-                    columns = ["dhlabid", "urn", "authors", "title", "timestamp", "year"]
+if submit_button:
+    doctype = params["doctype"]
+    if doctype == "digimanus":
+        df = dh.Corpus(
+            doctype=v(params["doctype"]),
+            author=v(params["authors"]),
+            fulltext=v(params["fulltext"]),
+            from_year=params["years"][0],
+            to_year=params["years"][1],
+            title=v(params["title"]),
+            limit=limit,
+            order_by=ordertype,
+        ).frame
+        columns = ["dhlabid", "urn", "authors", "title", "timestamp", "year"]
 
-                case "digavis":
-                    df = dh.Corpus(
-                        doctype=v(params["doctype"]),
-                        fulltext=v(params["fulltext"]),
-                        from_year=params["years"][0],
-                        to_year=params["years"][1],
-                        title=v(params["title"]),
-                        limit=limit,
-                        order_by=ordertype,
-                    ).frame
-                    columns = ["urn", "title", "year", "timestamp", "city"]
+    elif doctype == "digavis":
+        df = dh.Corpus(
+            doctype=v(params["doctype"]),
+            fulltext=v(params["fulltext"]),
+            from_year=params["years"][0],
+            to_year=params["years"][1],
+            title=v(params["title"]),
+            limit=limit,
+            order_by=ordertype,
+        ).frame
+        columns = ["urn", "title", "year", "timestamp", "city"]
 
-                case "digitidsskrift":
-                    df = dh.Corpus(
-                        doctype=v(params["doctype"]),
-                        author=v(params["authors"]),
-                        fulltext=v(params["fulltext"]),
-                        from_year=params["years"][0],
-                        to_year=params["years"][1],
-                        title=v(params["title"]),
-                        subject=v(params["subject"]),
-                        ddk=v(params["ddk"]),
-                        lang=params["langs"],
-                        limit=limit,
-                        order_by=ordertype,
-                    ).frame
-                    columns = [
-                        "dhlabid",
-                        "urn",
-                        "title",
-                        "city",
-                        "timestamp",
-                        "year",
-                        "publisher",
-                        "ddc",
-                        "langs",
-                    ]
+    elif doctype == "digitidsskrift":
+        df = dh.Corpus(
+            doctype=v(params["doctype"]),
+            author=v(params["authors"]),
+            fulltext=v(params["fulltext"]),
+            from_year=params["years"][0],
+            to_year=params["years"][1],
+            title=v(params["title"]),
+            subject=v(params["subject"]),
+            ddk=v(params["ddk"]),
+            lang=params["langs"],
+            limit=limit,
+            order_by=ordertype,
+        ).frame
+        columns = [
+            "dhlabid",
+            "urn",
+            "title",
+            "city",
+            "timestamp",
+            "year",
+            "publisher",
+            "ddc",
+            "langs",
+        ]
 
-                case "digistorting":
-                    df = dh.Corpus(
-                        doctype=v(params["doctype"]),
-                        fulltext=v(params["fulltext"]),
-                        from_year=params["years"][0],
-                        to_year=params["years"][1],
-                        limit=limit,
-                        order_by=ordertype,
-                    ).frame
-                    columns = ["dhlabid", "urn", "year"]
+    elif doctype == "digistorting":
+        df = dh.Corpus(
+            doctype=v(params["doctype"]),
+            fulltext=v(params["fulltext"]),
+            from_year=params["years"][0],
+            to_year=params["years"][1],
+            limit=limit,
+            order_by=ordertype,
+        ).frame
+        columns = ["dhlabid", "urn", "year"]
 
-                case _:
-                    df = dh.Corpus(
-                        doctype=v(params["doctype"]),
-                        author=v(params["authors"]),
-                        fulltext=v(params["fulltext"]),
-                        from_year=params["years"][0],
-                        to_year=params["years"][1],
-                        title=v(params["title"]),
-                        subject=v(params["subject"]),
-                        ddk=v(params["ddk"]),
-                        lang=params["langs"],
-                        limit=limit,
-                        order_by=ordertype,
-                    ).frame
-                    columns = [
-                        "dhlabid",
-                        "urn",
-                        "authors",
-                        "title",
-                        "city",
-                        "timestamp",
-                        "year",
-                        "publisher",
-                        "ddc",
-                        "subjects",
-                        "langs",
-                    ]
+    else:
+        df = dh.Corpus(
+            doctype=v(params["doctype"]),
+            author=v(params["authors"]),
+            fulltext=v(params["fulltext"]),
+            from_year=params["years"][0],
+            to_year=params["years"][1],
+            title=v(params["title"]),
+            subject=v(params["subject"]),
+            ddk=v(params["ddk"]),
+            lang=params["langs"],
+            limit=limit,
+            order_by=ordertype,
+        ).frame
+        columns = [
+            "dhlabid",
+            "urn",
+            "authors",
+            "title",
+            "city",
+            "timestamp",
+            "year",
+            "publisher",
+            "ddc",
+            "subjects",
+            "langs",
+        ]
 
-            st.markdown(f"Fant totalt {len(df)} dokumenter")
+    st.markdown(f"Fant totalt {len(df)} dokumenter")
 
-            if len(df) >= max_rows:
-                st.markdown(f"Viser {min_rows} rader.")
-                st.dataframe(df[columns].sample(min(min_rows, max_rows)).astype(str))
+    if len(df) >= max_rows:
+        st.markdown(f"Viser {min_rows} rader.")
+        st.dataframe(df[columns].sample(min(min_rows, max_rows)).astype(str))
 
-            else:
-                st.dataframe(df[columns].astype(str))
+    else:
+        st.dataframe(df[columns].astype(str))
 
-            df_defined = True
+    df_defined = True
 
     if df_defined:
         if st.download_button(
