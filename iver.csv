@@ -1,0 +1,22 @@
+Title,spec,A1 ID#,Requirement,Status,Included as-is,Level of effort to fix,Comments,Time Cost to complete,Person
+Automated IAM user credentials from azure,IAM,33,"Users and Roles should be created/synchronized with existing user registers (Azure AD, HR). Example Roles (Enterprise Admin/Pharmacy Admin/Pharmacist/Pharmacy Technician/Vaccinator/Requester).",,No,"Medium (1-3 days), Minimal (0-8 hrs)","*minimal; zapier configuraiton
+**Service account / firestore rule configuration",,JifUniversal 
+,,34,"Synchronization of users, user groups and roles from apotek1 Identity and access Management systems. For instance API’s for managing users, groups and roles based on information in Azure Active Directory.",,No,"Medium (1-3 days), Minimal (0-8 hrs)","*minimal; zapier configuraiton
+**Service account / firestore rule configuration",,JifUniversal 
+,,35,Role based access management (RBAC). Users should get access based on assigned roles. Describe how access to the system is  for different roles.,,No,,,,JifUniversal 
+,,36,"The solution supports SSO (single sign-on) for both customers and pharmacy employees. Customer portal should be integrated with our external IAM, customers will login to apotek 1.no and will be provisioned to book an appointment without new login. 
+Administration portal will be integrated with our internal IAM. Pharmacy employees/administrators will login to our pharmacy system (ALFA) and should be able to navigate to administration of appointments without asking for new login.",,,Medium (1-3 days),"Process description here: 
+https://firebase.google.com/docs/auth/web/saml
+
+The use of SSO is possible with the current solution. Must be set up specifically to work with Apotek 1.",,JifUniversal 
+,,37,"Super admins can perform operations at Enterprise level, for example creating services.",,Partial,Medium (1-3 days),This is related to the hierarchy that needs to be developed for a group of pharmacies. This will be possible with the new setup.,,JifUniversal 
+,Integration,38,"The solution must be able to be integrated with our pharmacy system (Alfa) to ensures a good overview of upcoming appointment bookings, provides notifications/alerts about upcoming appointments and queue formations across pre-booked and drop-in.",,No,Medium (1-3 days),"Linked to #36.
+Information about drop-in queue formation can be made easily available. It can also be viewed on an aggregated view for multiple Pharmacies. 
+
+Pre-booked appointment is currently not a planned feature.",,JifUniversal 
+,Integration,39,Encrypted communication between Apotek 1 and appointment scheduling system.,,Yes,,"All data is encrypted before storage, which is done with server-side encryption. In addition, the communication between the client (Apotek1 or end-users) and the server side utilizes TLS (Transport Layer Security) and HTTPS.",,JifUniversal 
+,Integration,40,It should be possible to send/redirect end-users (after appointment is booked) to a custom Apotek 1 URL where health data can be collected through a form.,,Yes,Minimal (0-8 hrs),"Including a custom URL for redirect is very easy to include, and can be updated easily in the shop owner page.",,JifUniversal 
+,Integration,41,Vendor should document how stored data is encrypted.,,Yes,,"Firestore automatically encrypts all data before it is written to disk. There is no setup or configuration required and no need to modify the way you access the service. The data is automatically and transparently decrypted when read by an authorized user.
+With server-side encryption, Google manages the cryptographic keys on your behalf using the same hardened key management systems that we use for our own encrypted data, including strict key access controls and auditing. Each Firestore object's data and metadata is encrypted under the https://en.wikipedia.org/wiki/Advanced_Encryption_Standard, and each encryption key is itself encrypted with a regularly rotated set of master keys.",,JifUniversal 
+,Integration,42,"The web app can be embedded/integrated with existing web portals (Apotek 1.no) and our pharmacy system. Iframe, widgets etc.",,tbd,,"tbd
+Not enough information about Apotek http://1.no and what is possible to embed",,JifUniversal 
