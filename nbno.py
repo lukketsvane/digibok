@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 
+=======
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+>>>>>>> 6bc0a43b5a003b9828fb7f63c20555caeb53268e
 import io
 import os
 import re
