@@ -2,14 +2,14 @@ import streamlit as st
 import pandas as pd
 import datetime
 import dhlab as dh
+import subprocess
+import os
 from io import BytesIO
 
-### Parameters ###
 max_size_corpus = 20000
 max_rows = 1200
 min_rows = 800
-default_size = 10  # percent of max_size_corpus
-
+default_size = 10  
 
 def to_excel(df):
     """Make an excel object out of a dataframe as an IO-object"""
@@ -17,7 +17,6 @@ def to_excel(df):
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
         df.to_excel(writer, index=False, sheet_name="Sheet1")
     # worksheet = writer.sheets["Sheet1"]
-    # writer.save()
     processed_data = output.getvalue()
     return processed_data
 
@@ -39,12 +38,8 @@ def header():
         col_zero.markdown(
             f""" 
     <div style="display: flex; align-items: center; gap: 5px; margin-top: -20px;">
-    <a href="{link}" target="_blank">
-        <i class="fab fa-github fa-1x" style="color: #262730;"></i>
-    </a>
-    <a href="https://www.nb.no/dh-lab/kontakt/" target="_blank">
-        <i style='font-size:15px; color: #262730;' class='fas'>&#xf0e0;</i>
-    </a>
+
+
     
 </div>
 """,
@@ -59,9 +54,9 @@ def header():
     with st.expander("ℹ️ Appinfo"):
         # st.write("some text")
         st.markdown(
-            """Med denne appen kan man lage et DHLAB-korpus av tekster fra Nasjonalbibliotekets samling. Et DHLAB-korpus gjør at man kan gjøre kvantitative analyser av tekstsamlinger som inkluderer opphavsrettsbeskyttet materiale. I stedet for å laste ned tekstene, får man en kode for hver tekst. Denne kan så lastes opp i andre DHLAB-apper for å gjøre analyser på den teksten. 
+            """ 
 
-DHLAB tilbyr følgende ressurstyper:  
+vi tilbyr følgende ressurstyper:  
 **Digibok**: Bøker fra Nasjonalbiblioteket  
 **Digavis**: Aviser fra Nasjonalbiblioteket  
 **Digitidsskrift**: Tidsskrift fra Nasjonalbiblioteket  
@@ -69,7 +64,6 @@ DHLAB tilbyr følgende ressurstyper:
 **Digimanus**: Brev og manuskripter  
 **Kudos**: [Kunnskapsdokumenter i offentlig sektor](https://kudos.dfo.no/)  
 
-Man kan gjøre et utvalg fra metadata som er tilgjengelig for hver ressurstype. Ved å laste det ned, kan man bruke det samme korpuset i andre apper fra DHLAB.
 """
         )
 
@@ -320,6 +314,41 @@ def corpus_management(params):
             help="Åpnes i Excel eller tilsvarende",
         ):
             pass
+
+    urn_value = st.text_input("Lim inn URN verdi her (feks., URN:NBN:no-nb_digibok_2020051148114)")
+
+    if st.button('Download PDF'):
+        if urn_value.startswith('URN:NBN:no-nb_'):
+            identifier = urn_value.replace('URN:NBN:no-nb_', '')
+            command = f"python3 nbno.py --id {identifier} --title --pdf"
+            process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            output, error = process.communicate()
+            
+            st.text_area("Log output:", output.decode('utf-8'), height=150)
+            
+            if process.returncode == 0:
+                # Find the most recently modified PDF file in the books directory
+                books_dir = "books/"
+                pdf_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(books_dir) for f in filenames if f.endswith('.pdf')]
+                latest_pdf_file = max(pdf_files, key=os.path.getmtime)
+                
+                if latest_pdf_file:
+                    with open(latest_pdf_file, "rb") as pdf_file:
+                        st.download_button(
+                            label="Download PDF",
+                            data=pdf_file,
+                            file_name=os.path.basename(latest_pdf_file),
+                            mime="application/pdf"
+                        )
+                else:
+                    st.error("PDF file not found. Please check the nbno.py script's output directory.")
+            else:
+                st.error("An error occurred while downloading the PDF.")
+                if error:
+                    st.text_area("Error log:", error.decode('utf-8'), height=150)
+        else:
+            st.warning("Please enter a valid URN value.")
+
 
 
 def main():

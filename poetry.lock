@@ -48,7 +48,7 @@ class Book:
         self.adapter = HTTPAdapter(max_retries=(Retry(total=5, backoff_factor=0.5)))
         self.session.mount("https://", self.adapter)
         self.session.mount("http://", self.adapter)
-        self.set_folder_path("." + os.path.sep + "books" + os.path.sep + str(self.media_id) + os.path.sep)
+        self.set_folder_path("." + os.path.sep + str(self.media_id) + os.path.sep)
         self.get_manifest()
         self.image_lock = threading.Lock()
 
@@ -63,14 +63,13 @@ class Book:
         self.print_error = True
 
     def set_title(self):
-        self.set_folder_path("." + os.path.sep + "books" + os.path.sep + self.title + os.path.sep)
+        self.set_folder_path("." + os.path.sep + self.title + os.path.sep)
 
     def verbose_print(self):
         self.verbose = True
 
     def set_folder_path(self, folder_path):
         self.folder_path = folder_path
-        os.makedirs(self.folder_path, exist_ok=True)
         self.find_existing_files()
 
     def find_existing_files(self):
