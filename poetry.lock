@@ -380,27 +380,23 @@ version = "2.31.0"
 description = "Text and image analysis of the digital collection (books, newspapers, periodicals, and images) at the National Library of Norway"
 optional = false
 python-versions = ">=3.9"
-files = []
-develop = false
+files = [
+    {file = "dhlab-2.31.0-py3-none-any.whl", hash = "sha256:d8e1cc4cfbb23578113e1af6216a63f52652f1f0e1ed6fac2f288a6d92e864db"},
+    {file = "dhlab-2.31.0.tar.gz", hash = "sha256:7cbf865bcf9d4fa82cee4d9cbdd97a542aa2a655dff1ae9dbb9f9b27d0f2294c"},
+]
 
 [package.dependencies]
-beautifulsoup4 = "^4.12.2"
-ipython = "^8.17.2"
-matplotlib = "^3.8.1"
-networkx = "^3.2.1"
-numpy = "^1.26.3"
-openpyxl = "^3.1.2"
-pandas = "^2.1.2"
-python-louvain = "^0.16"
-requests = "^2.31.0"
-scipy = "^1.11.3"
-seaborn = "^0.13.0"
-
-[package.source]
-type = "git"
-url = "https://github.com/NationalLibraryOfNorway/DHLAB.git"
-reference = "main"
-resolved_reference = "b3860a86ebd72c2c0487fdd22d444351d1eeb8c0"
+beautifulsoup4 = ">=4.12.2,<5.0.0"
+ipython = ">=8.17.2,<9.0.0"
+matplotlib = ">=3.8.1,<4.0.0"
+networkx = ">=3.2.1,<4.0.0"
+numpy = ">=1.26.3,<2.0.0"
+openpyxl = ">=3.1.2,<4.0.0"
+pandas = ">=2.1.2,<3.0.0"
+python-louvain = ">=0.16,<0.17"
+requests = ">=2.31.0,<3.0.0"
+scipy = ">=1.11.3,<2.0.0"
+seaborn = ">=0.13.0,<0.14.0"
 
 [[package]]
 name = "et-xmlfile"
@@ -1051,16 +1047,6 @@ files = [
 
 [package.dependencies]
 et-xmlfile = "*"
-
-[[package]]
-name = "package-name"
-version = "0.1"
-description = "Package Description"
-optional = false
-python-versions = "*"
-files = [
-    {file = "package_name-0.1.tar.gz", hash = "sha256:6791bd670efd086c99706c6dd82ba2d4dcee397a575c51f257398c8028f616be"},
-]
 
 [[package]]
 name = "packaging"
@@ -2060,4 +2046,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "70df1031a25c1f58aebcd5dd07c3f61609ced6a7ee70bd539cca3c5e192e8fb7"
+content-hash = "5f91f37922ce9ee0d01c7a2547ee4ff32dcf0ec235caad8d112f0c621d5b4202"
