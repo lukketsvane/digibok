@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "dhlab-app-corpus"
+name = "digibok"
 version = "1.1.0"
-description = "Dh-lab corpus streamlit app"
+description = "corpus streamlit app"
 authors = ["DH-lab <dhlab@nb.no>"]
 license = "gpl3"
 readme = "README.md"
@@ -10,8 +10,8 @@ readme = "README.md"
 python = "^3.10"
 pandas = "^2.1.4"
 openpyxl = "^3.1.2"
-streamlit = "^1.29.0"
 dhlab = {git = "https://github.com/NationalLibraryOfNorway/DHLAB.git", rev = "main"}
+streamlit = "^1.30.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
