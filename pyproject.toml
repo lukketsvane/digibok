@@ -12,7 +12,7 @@ pandas = "^2.1.4"
 openpyxl = "^3.1.2"
 streamlit = "^1.29.0"
 dhlab = "^2.31.0"
-Pillow = "*"
+pillow = "*"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
