@@ -14,6 +14,7 @@ streamlit = "^1.29.0"
 dhlab = "^2.31.0"
 pillow = "*"
 
+
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
 
