@@ -1,7 +1,6 @@
 import warnings
 warnings.filterwarnings('ignore')
 import streamlit as st
-st.set_option('global.developmentMode', False)
-st.script_run_ctx.add_script_run_ctx()
-st._is_running_with_streamlit = True
+st.set_option('server.headless', True)
+st.set_option('server.address', '0.0.0.0')
 import app
