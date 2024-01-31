@@ -7,7 +7,7 @@ license = "gpl3"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.9,<4.0"
 pandas = "^2.1.4"
 openpyxl = "^3.1.2"
 streamlit = "^1.29.0"
