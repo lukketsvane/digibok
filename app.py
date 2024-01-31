@@ -4,6 +4,7 @@ import datetime
 import dhlab as dh
 import subprocess
 import os
+from PIL import Image
 from io import BytesIO
 
 max_size_corpus = 20000
