@@ -153,9 +153,10 @@ def corpus_management(params):
             if process.returncode == 0:
                 books_dir = "books/"
                 pdf_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(books_dir) for f in filenames if f.endswith('.pdf')]
-                latest_pdf_file = max(pdf_files, key=os.path.getmtime)
                 
-                if latest_pdf_file:
+                if pdf_files:  # Check if pdf_files list is not empty
+                    latest_pdf_file = max(pdf_files, key=os.path.getmtime)
+                    
                     with open(latest_pdf_file, "rb") as pdf_file:
                         st.download_button(
                             label="Download PDF",

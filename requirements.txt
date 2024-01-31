@@ -21,8 +21,8 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 cleo==2.0.1
 click==8.1.7
-colorama==0.4.6
-command-not-found==0.3
+colorama
+command-not-found
 contourpy==1.2.0
 crashtest==0.4.1
 cryptography==3.4.8
