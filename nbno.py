@@ -4,7 +4,7 @@ import re
 import warnings
 import argparse
 import threading
-from PIL import Image
+from PIL import Image 
 from glob import glob
 from math import ceil
 import multiprocessing
