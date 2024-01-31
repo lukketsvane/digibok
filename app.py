@@ -151,7 +151,7 @@ def corpus_management(params):
             st.text_area("Log output:", output.decode('utf-8'), height=150)
             
             if process.returncode == 0:
-                books_dir = "books/"
+                books_dir = "books"
                 pdf_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(books_dir) for f in filenames if f.endswith('.pdf')]
                 
                 if pdf_files:  # Check if pdf_files list is not empty
